@@ -1,0 +1,28 @@
+version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+      php: 8.2
+    commands:
+      - echo "Installing PHP extensions"
+      - yum install -y php-mbstring php-xml php-bcmath php-pdo php-mysqlnd php-json php-openssl
+
+  pre_build:
+    commands:
+      - echo "Build phase starting"
+
+  build:
+    commands:
+      - echo "Build phase complete"
+
+artifacts:
+  base-directory: .
+  discard-paths: no
+  files:
+    - '**/*'
+  exclude:
+    - vendor/**
+    - .env*
+    - node_modules/**
+    - public/build

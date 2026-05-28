@@ -1,0 +1,44 @@
+#!/bin/bash
+# Generate .env file from EB environment properties (RDS version)
+
+APP_PATH="/var/app/staging"
+ENV_FILE="$APP_PATH/.env"
+
+echo "----------------------------------------"
+echo "Generating .env file at $ENV_FILE"
+
+cat > $ENV_FILE <<EOL
+APP_NAME=${APP_NAME}
+APP_ENV=${APP_ENV}
+APP_KEY=${APP_KEY}
+APP_DEBUG=${APP_DEBUG}
+APP_URL=${APP_URL}
+FRONTEND_URL=${FRONTEND_URL}
+
+LOG_CHANNEL=${LOG_CHANNEL}
+LOG_LEVEL=${LOG_LEVEL}
+
+# Map RDS variables to Laravel DB variables
+DB_CONNECTION=${RDS_CONNECTION}
+DB_HOST=${RDS_HOST_NAME}
+DB_PORT=${RDS_PORT}
+DB_DATABASE=${RDS_DB_NAME}
+DB_USERNAME=${RDS_USERNAME}
+DB_PASSWORD=${RDS_PASSWORD}
+
+CACHE_DRIVER=${CACHE_DRIVER}
+SESSION_DRIVER=${SESSION_DRIVER}
+QUEUE_CONNECTION=${QUEUE_CONNECTION}
+FILESYSTEM_DISK=${FILESYSTEM_DISK}
+
+# AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
+# AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
+AWS_DEFAULT_REGION=${AWS_DEFAULT_REGION}
+AWS_BUCKET=${AWS_BUCKET}
+AWS_URL=${AWS_URL}
+EOL
+
+chown webapp:webapp $ENV_FILE
+chmod 664 $ENV_FILE
+
+echo ".env file created successfully"

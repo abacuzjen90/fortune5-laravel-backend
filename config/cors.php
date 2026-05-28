@@ -18,7 +18,7 @@ return [
     'allowed_methods' => ['*'], // Allow all HTTP methods: GET, POST, etc.
 
     'allowed_origins' => [
-        'https://111hardware.com',
+        'https://fortune5frontend.111hardware.com',
         'http://localhost:5173',
     ],
 
